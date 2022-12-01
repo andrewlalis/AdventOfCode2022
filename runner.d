@@ -1,4 +1,4 @@
-#!/usr/bin/rdmd
+#!/usr/bin/env rdmd
 
 /**
  * Simple wrapper program for managing the various solutions. Each solution is
@@ -81,7 +81,7 @@ void clean() {
 int run(string[] args) {
     string[] solutionsToRun;
     if (args.length == 0 || args[0].strip().toLower() == "all") {
-        auto r = ctRegex!(`^(s\d+)[a-z]*\.d$`);
+        auto r = ctRegex!(`^(s\d+[a-z]*)\.d$`);
         foreach (entry; dirEntries("src", SpanMode.shallow, false)) {
             auto c = matchFirst(baseName(entry.name), r);
             if (c) solutionsToRun ~= c[1];
@@ -168,10 +168,10 @@ int compileSolution(string solution) {
  */
 void runSolution(string solution) {
     string processPath = buildPath("bin", solution);
-    writefln!"-----< %s >-----\n"(solution);
+    writefln!"-----< %s >-----"(solution);
     Pid pid = spawnProcess(processPath);
     int result = wait(pid);
-    writefln!"\n-----< %s >-----\n"(solution);
+    writeln();
     if (result != 0) {
         writefln!"Solution %s failed with exit code %d."(solution, result);
     }

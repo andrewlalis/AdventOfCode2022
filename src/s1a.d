@@ -2,15 +2,7 @@ module s1a;
 import util;
 
 void main() {
-    ulong maxCalories = 0;
-    ulong currentCalories = 0;
-    foreach (line; File("input/1.txt", "r").byLine()) {
-        if (line.strip().length == 0) {
-            if (currentCalories > maxCalories) maxCalories = currentCalories;
-            currentCalories = 0;
-        } else {
-            currentCalories += line.strip().to!ulong;
-        }
-    }
-    writeln(maxCalories);
+    readText("input/1.txt").strip.splitter("\n\n")
+        .map!(c => c.strip.splitter("\n").map!(l => l.to!ulong).sum)
+        .maxElement.writeln;
 }

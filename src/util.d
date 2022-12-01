@@ -10,3 +10,4 @@ public import std.algorithm;
 public import std.conv;
 public import std.path;
 public import std.uni;
+public import std.array;
