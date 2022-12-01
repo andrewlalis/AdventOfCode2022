@@ -1,9 +1,10 @@
-#!/usr/local/bin/rdmd
+#!/usr/bin/rdmd
 
 /**
  * Simple wrapper program for managing the various solutions. Each solution is
- * defined as a single D source file in `src/sX.d`, where `X` is the number of
- * the solution. All executables are placed in a `bin/` directory.
+ * defined as a single D source file in `src/s\d+[a-z]*.d`, which is an "s"
+ * followed by the day number, followed by a character representing which
+ * challenge of the day it is.
  *
  * This script can be executed standalone via `./runner.d`, provided that you
  * have given the script the execution privilege (usually with `chmod +x runner.d`).
@@ -80,7 +81,7 @@ void clean() {
 int run(string[] args) {
     string[] solutionsToRun;
     if (args.length == 0 || args[0].strip().toLower() == "all") {
-        auto r = ctRegex!(`^(s\d+)\.d$`);
+        auto r = ctRegex!(`^(s\d+)[a-z]*\.d$`);
         foreach (entry; dirEntries("src", SpanMode.shallow, false)) {
             auto c = matchFirst(baseName(entry.name), r);
             if (c) solutionsToRun ~= c[1];
@@ -189,10 +190,10 @@ int create(string[] args) {
         return 1;
     }
     string solution = args[0].strip().toLower();
-    auto r = ctRegex!(`^s\d+$`);
+    auto r = ctRegex!(`^s\d+[a-z]*$`);
     auto c = matchFirst(solution, r);
     if (!c) {
-        writefln!"Solution name \"%s\" is not valid. Should be \"s\\d+\"."(solution);
+        writefln!"Solution name \"%s\" is not valid. Should be \"s\\d+[a-z]*\"."(solution);
         return 1;
     }
     string filePath = buildPath("src", solution ~ ".d");
