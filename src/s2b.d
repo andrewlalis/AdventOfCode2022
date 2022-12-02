@@ -1,10 +1,6 @@
 module s2b;
 import util;
 
-const ROCK = 1;
-const PAPER = 2;
-const SCISSORS = 3;
-
 void main() {
     readText("input/2.txt").strip.splitter("\n")
         .map!(l => l.strip.splitter(" ").map!(c => c.to!char).array)
