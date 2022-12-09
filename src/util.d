@@ -12,6 +12,7 @@ public import std.path;
 public import std.uni;
 public import std.array;
 public import std.format;
+public import std.math;
 
 /** 
  * Simple set implementation since the stdlib doesn't really have a good one.
@@ -38,7 +39,7 @@ struct Set(T) {
 
     bool remove(T element) {
         size_t[] indexes;
-        foreach (e, i; this.items) {
+        foreach (i, e; this.items) {
             if (e == element) indexes ~= i;
         }
         this.items = this.items.remove(indexes);
