@@ -13,6 +13,7 @@ public import std.uni;
 public import std.array;
 public import std.format;
 public import std.math;
+public import std.typecons;
 
 /** 
  * Simple set implementation since the stdlib doesn't really have a good one.
